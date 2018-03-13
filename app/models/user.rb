@@ -9,6 +9,10 @@ class User < ApplicationRecord
 
   # Indirect associations
 
+  has_many   :liked_places,
+             :through => :favorites,
+             :source => :destination
+
   # Validations
 
   # Include default devise modules. Others available are:
