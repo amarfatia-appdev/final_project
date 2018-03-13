@@ -1,4 +1,14 @@
 class RecommendationsController < ApplicationController
+  before_action :current_user_must_be_recommendation_user, :only => [:edit, :update, :destroy]
+
+  def current_user_must_be_recommendation_user
+    recommendation = Recommendation.find(params[:id])
+
+    unless current_user == recommendation.user
+      redirect_to :back, :alert => "You are not authorized for that."
+    end
+  end
+
   def index
     @recommendations = Recommendation.all
 
