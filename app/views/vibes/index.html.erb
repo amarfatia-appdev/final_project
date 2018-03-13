@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h1>
+    Vibes
+    <a href="/vibes/new" class="btn btn-lg btn-success">New Vibe</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @vibes.each do |vibe| %>
+      <tr>
+        <td><%= vibe.name %></td>
+        <td>
+          <a href="/vibes/<%= vibe.id %>" class="btn btn-primary">Show</a>
+          <a href="/vibes/<%= vibe.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_vibe/<%= vibe.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

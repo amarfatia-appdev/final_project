@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+  # Routes for the Vibe resource:
+  # CREATE
+  get "/vibes/new", :controller => "vibes", :action => "new"
+  post "/create_vibe", :controller => "vibes", :action => "create"
+
+  # READ
+  get "/vibes", :controller => "vibes", :action => "index"
+  get "/vibes/:id", :controller => "vibes", :action => "show"
+
+  # UPDATE
+  get "/vibes/:id/edit", :controller => "vibes", :action => "edit"
+  post "/update_vibe/:id", :controller => "vibes", :action => "update"
+
+  # DELETE
+  get "/delete_vibe/:id", :controller => "vibes", :action => "destroy"
+  #------------------------------
+
   # Routes for the Recommendation resource:
   # CREATE
   get "/recommendations/new", :controller => "recommendations", :action => "new"
