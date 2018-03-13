@@ -23,3 +23,96 @@
     </div>
   </div>
 </div>
+
+<!-- A User has many recommendations -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Recommendations
+      </li>
+
+      <% @user.recommendations.each do |recommendation| %>
+        <li class="list-group-item">
+          <a href="/recommendations/<%= recommendation.id %>">
+            <%= recommendation.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/recommendations/<%= recommendation.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/recommendations/<%= recommendation.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_recommendation/<%= recommendation.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A User has many favorites -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Favorites
+      </li>
+
+      <% @user.favorites.each do |favorite| %>
+        <li class="list-group-item">
+          <a href="/favorites/<%= favorite.id %>">
+            <%= favorite.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/favorites/<%= favorite.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/favorites/<%= favorite.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_favorite/<%= favorite.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A User has many liked_places -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Liked Places
+      </li>
+
+      <% @user.liked_places.each do |destination| %>
+        <li class="list-group-item">
+          <a href="/destinations/<%= destination.id %>">
+            <%= destination.name %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/destinations/<%= destination.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/destinations/<%= destination.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_destination/<%= destination.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
