@@ -10,7 +10,7 @@ class RecommendationsController < ApplicationController
   end
 
   def index
-    @recommendations = Recommendation.all
+    @recommendations = current_user.recommendations.page(params[:page]).per(10)
 
     render("recommendations/index.html.erb")
   end
