@@ -18,6 +18,10 @@ class Destination < ApplicationRecord
 
   # Indirect associations
 
+  has_many   :vibes,
+             :through => :tags,
+             :source => :vibe
+
   has_many   :fans,
              :through => :favorites,
              :source => :user

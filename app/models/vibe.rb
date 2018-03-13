@@ -6,6 +6,10 @@ class Vibe < ApplicationRecord
 
   # Indirect associations
 
+  has_many   :destinations,
+             :through => :tags,
+             :source => :destination
+
   # Validations
 
 end
