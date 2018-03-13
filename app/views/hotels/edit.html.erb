@@ -1,0 +1,55 @@
+<!-- Validation failure messages -->
+<% if @hotel.errors.any? %>
+  <% @hotel.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Hotel #<%= @hotel.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_hotel/<%= @hotel.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for stars -->
+      <div class="form-group">
+        <label for="stars" class="control-label">
+          Stars
+        </label>
+
+        <input type="text" id="stars" name="stars" placeholder="Stars" class="form-control" value="<%= @hotel.stars %>">
+      </div>
+
+      <!-- Label and input for min_cost -->
+      <div class="form-group">
+        <label for="min_cost" class="control-label">
+          Min cost
+        </label>
+
+        <input type="text" id="min_cost" name="min_cost" placeholder="Min cost" class="form-control" value="<%= @hotel.min_cost %>">
+      </div>
+
+      <!-- Label and input for destination_id -->
+      <div class="form-group">
+        <label for="destination_id" class="control-label">
+          Destination
+        </label>
+
+        <input type="text" id="destination_id" name="destination_id" placeholder="Destination" class="form-control" value="<%= @hotel.destination_id %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Hotel
+      </button>
+      or
+      <a href="/hotels/<%= @hotel.id %>">Cancel</a>
+    </form>
+  </div>
+</div>

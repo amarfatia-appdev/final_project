@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+  # Routes for the Hotel resource:
+  # CREATE
+  get "/hotels/new", :controller => "hotels", :action => "new"
+  post "/create_hotel", :controller => "hotels", :action => "create"
+
+  # READ
+  get "/hotels", :controller => "hotels", :action => "index"
+  get "/hotels/:id", :controller => "hotels", :action => "show"
+
+  # UPDATE
+  get "/hotels/:id/edit", :controller => "hotels", :action => "edit"
+  post "/update_hotel/:id", :controller => "hotels", :action => "update"
+
+  # DELETE
+  get "/delete_hotel/:id", :controller => "hotels", :action => "destroy"
+  #------------------------------
+
   # Routes for the Flight resource:
   # CREATE
   get "/flights/new", :controller => "flights", :action => "new"
