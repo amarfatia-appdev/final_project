@@ -51,6 +51,29 @@
           </div>
         </li>
       <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_tag" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for vibe_id -->
+      <input type="hidden" name="vibe_id" value="<%= @vibe.id %>">
+
+      <!-- Label and input for destination_id -->
+      <div class="form-group">
+        <label for="destination_id" class="control-label">
+          Destination
+        </label>
+
+        <%= select_tag(:destination_id, options_from_collection_for_select(Destination.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Tag
+      </button>
+    </form>
+      </li>
     </ul>
   </div>
 </div>

@@ -6,6 +6,11 @@ class DestinationsController < ApplicationController
   end
 
   def show
+    @favorite = Favorite.new
+    @tag = Tag.new
+    @flight = Flight.new
+    @hotel = Hotel.new
+    @recommendation = Recommendation.new
     @destination = Destination.find(params[:id])
 
     render("destinations/show.html.erb")

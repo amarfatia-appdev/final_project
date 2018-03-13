@@ -6,6 +6,7 @@ class VibesController < ApplicationController
   end
 
   def show
+    @tag = Tag.new
     @vibe = Vibe.find(params[:id])
 
     render("vibes/show.html.erb")

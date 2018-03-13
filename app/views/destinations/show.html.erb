@@ -66,6 +66,23 @@
           </div>
         </li>
       <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_recommendation" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for destination_id -->
+      <input type="hidden" name="destination_id" value="<%= @destination.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Recommendation
+      </button>
+    </form>
+      </li>
     </ul>
   </div>
 </div>
@@ -97,6 +114,38 @@
           </div>
         </li>
       <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_hotel" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for stars -->
+      <div class="form-group">
+        <label for="stars" class="control-label">
+          Stars
+        </label>
+
+        <input type="text" id="stars" name="stars" placeholder="Stars" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for min_cost -->
+      <div class="form-group">
+        <label for="min_cost" class="control-label">
+          Min cost
+        </label>
+
+        <input type="text" id="min_cost" name="min_cost" placeholder="Min cost" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for destination_id -->
+      <input type="hidden" name="destination_id" value="<%= @destination.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Hotel
+      </button>
+    </form>
+      </li>
     </ul>
   </div>
 </div>
@@ -128,6 +177,29 @@
           </div>
         </li>
       <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_flight" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for min_cost -->
+      <div class="form-group">
+        <label for="min_cost" class="control-label">
+          Min cost
+        </label>
+
+        <input type="text" id="min_cost" name="min_cost" placeholder="Min cost" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for destination_id -->
+      <input type="hidden" name="destination_id" value="<%= @destination.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Flight
+      </button>
+    </form>
+      </li>
     </ul>
   </div>
 </div>
@@ -159,6 +231,29 @@
           </div>
         </li>
       <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_tag" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for vibe_id -->
+      <div class="form-group">
+        <label for="vibe_id" class="control-label">
+          Vibe
+        </label>
+
+        <%= select_tag(:vibe_id, options_from_collection_for_select(Vibe.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for destination_id -->
+      <input type="hidden" name="destination_id" value="<%= @destination.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Tag
+      </button>
+    </form>
+      </li>
     </ul>
   </div>
 </div>
@@ -190,6 +285,23 @@
           </div>
         </li>
       <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_favorite" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for destination_id -->
+      <input type="hidden" name="destination_id" value="<%= @destination.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Favorite
+      </button>
+    </form>
+      </li>
     </ul>
   </div>
 </div>
