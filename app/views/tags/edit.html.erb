@@ -24,7 +24,7 @@
           Vibe
         </label>
 
-        <input type="text" id="vibe_id" name="vibe_id" placeholder="Vibe" class="form-control" value="<%= @tag.vibe_id %>">
+        <%= select_tag(:vibe_id, options_from_collection_for_select(Vibe.all, :id, :name, @tag.vibe_id), :class => "form-control") %>
       </div>
 
       <!-- Label and input for destination_id -->
