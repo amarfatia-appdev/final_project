@@ -6,10 +6,22 @@
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
       <dt>User</dt>
-      <dd><%= @recommendation.user_id %></dd>
+      <dd>
+        <% if @recommendation.user.present? %>
+          <a href="/users/<%= @recommendation.user_id %>">
+            <%= @recommendation.user.email %>
+          </a>
+        <% end %>
+      </dd>
 
       <dt>Destination</dt>
-      <dd><%= @recommendation.destination_id %></dd>
+      <dd>
+        <% if @recommendation.destination.present? %>
+          <a href="/destinations/<%= @recommendation.destination_id %>">
+            <%= @recommendation.destination.name %>
+          </a>
+        <% end %>
+      </dd>
 
     </dl>
 

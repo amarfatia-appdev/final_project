@@ -12,7 +12,13 @@
       <dd><%= @hotel.min_cost %></dd>
 
       <dt>Destination</dt>
-      <dd><%= @hotel.destination_id %></dd>
+      <dd>
+        <% if @hotel.destination.present? %>
+          <a href="/destinations/<%= @hotel.destination_id %>">
+            <%= @hotel.destination.name %>
+          </a>
+        <% end %>
+      </dd>
 
     </dl>
 

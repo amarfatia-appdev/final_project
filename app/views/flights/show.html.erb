@@ -9,7 +9,13 @@
       <dd><%= @flight.min_cost %></dd>
 
       <dt>Destination</dt>
-      <dd><%= @flight.destination_id %></dd>
+      <dd>
+        <% if @flight.destination.present? %>
+          <a href="/destinations/<%= @flight.destination_id %>">
+            <%= @flight.destination.name %>
+          </a>
+        <% end %>
+      </dd>
 
     </dl>
 

@@ -16,8 +16,20 @@
 
       <% @tags.each do |tag| %>
       <tr>
-        <td><%= tag.vibe.name %></td>
-        <td><%= tag.destination.name %></td>
+        <td>
+          <% if tag.vibe.present? %>
+            <a href="/vibes/<%= tag.vibe.id %>">
+              <%= tag.vibe.name %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <% if tag.destination.present? %>
+            <a href="/destinations/<%= tag.destination.id %>">
+              <%= tag.destination.name %>
+            </a>
+          <% end %>
+        </td>
         <td>
           <a href="/tags/<%= tag.id %>" class="btn btn-primary">Show</a>
           <a href="/tags/<%= tag.id %>/edit" class="btn btn-warning">Edit</a>

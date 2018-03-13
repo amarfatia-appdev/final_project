@@ -19,7 +19,13 @@
       <tr>
         <td><%= hotel.stars %></td>
         <td><%= hotel.min_cost %></td>
-        <td><%= hotel.destination.name %></td>
+        <td>
+          <% if hotel.destination.present? %>
+            <a href="/destinations/<%= hotel.destination.id %>">
+              <%= hotel.destination.name %>
+            </a>
+          <% end %>
+        </td>
         <td>
           <a href="/hotels/<%= hotel.id %>" class="btn btn-primary">Show</a>
           <a href="/hotels/<%= hotel.id %>/edit" class="btn btn-warning">Edit</a>

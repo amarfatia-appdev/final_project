@@ -17,7 +17,13 @@
       <% @flights.each do |flight| %>
       <tr>
         <td><%= flight.min_cost %></td>
-        <td><%= flight.destination.name %></td>
+        <td>
+          <% if flight.destination.present? %>
+            <a href="/destinations/<%= flight.destination.id %>">
+              <%= flight.destination.name %>
+            </a>
+          <% end %>
+        </td>
         <td>
           <a href="/flights/<%= flight.id %>" class="btn btn-primary">Show</a>
           <a href="/flights/<%= flight.id %>/edit" class="btn btn-warning">Edit</a>

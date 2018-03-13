@@ -16,8 +16,20 @@
 
       <% @recommendations.each do |recommendation| %>
       <tr>
-        <td><%= recommendation.user.email %></td>
-        <td><%= recommendation.destination.name %></td>
+        <td>
+          <% if recommendation.user.present? %>
+            <a href="/users/<%= recommendation.user.id %>">
+              <%= recommendation.user.email %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <% if recommendation.destination.present? %>
+            <a href="/destinations/<%= recommendation.destination.id %>">
+              <%= recommendation.destination.name %>
+            </a>
+          <% end %>
+        </td>
         <td>
           <a href="/recommendations/<%= recommendation.id %>" class="btn btn-primary">Show</a>
           
