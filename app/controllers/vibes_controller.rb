@@ -1,6 +1,7 @@
 class VibesController < ApplicationController
   def index
-    @vibes = Vibe.page(params[:page]).per(10)
+    @q = Vibe.ransack(params[:q])
+    @vibes = @q.result(:distinct => true).includes(:tags, :destinations).page(params[:page]).per(10)
 
     render("vibes/index.html.erb")
   end

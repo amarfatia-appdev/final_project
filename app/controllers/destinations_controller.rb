@@ -1,6 +1,7 @@
 class DestinationsController < ApplicationController
   def index
-    @destinations = Destination.page(params[:page]).per(10)
+    @q = Destination.ransack(params[:q])
+    @destinations = @q.result(:distinct => true).includes(:recommendations, :hotels, :flights, :tags, :favorites, :fans, :vibes).page(params[:page]).per(10)
 
     render("destinations/index.html.erb")
   end

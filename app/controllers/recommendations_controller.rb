@@ -10,7 +10,8 @@ class RecommendationsController < ApplicationController
   end
 
   def index
-    @recommendations = current_user.recommendations.page(params[:page]).per(10)
+    @q = current_user.recommendations.ransack(params[:q])
+      @recommendations = @q.result(:distinct => true).includes(:user, :destination).page(params[:page]).per(10)
 
     render("recommendations/index.html.erb")
   end
