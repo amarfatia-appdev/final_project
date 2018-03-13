@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h3>Destination #<%= @destination.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Name</dt>
+      <dd><%= @destination.name %></dd>
+
+      <dt>Description</dt>
+      <dd><%= @destination.description %></dd>
+
+      <dt>Tag</dt>
+      <dd><%= @destination.tag_id %></dd>
+
+      <dt>Image url</dt>
+      <dd><%= @destination.image_url %></dd>
+
+      <dt>Latitude</dt>
+      <dd><%= @destination.latitude %></dd>
+
+      <dt>Longitude</dt>
+      <dd><%= @destination.longitude %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/destinations" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/destinations/<%= @destination.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_destination/<%= @destination.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
