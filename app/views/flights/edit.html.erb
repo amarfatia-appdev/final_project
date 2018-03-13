@@ -33,7 +33,7 @@
           Destination
         </label>
 
-        <input type="text" id="destination_id" name="destination_id" placeholder="Destination" class="form-control" value="<%= @flight.destination_id %>">
+        <%= select_tag(:destination_id, options_from_collection_for_select(Destination.all, :id, :name, @flight.destination_id), :class => "form-control") %>
       </div>
 
       <button class="btn btn-warning">
