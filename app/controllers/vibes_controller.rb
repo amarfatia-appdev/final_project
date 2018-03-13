@@ -1,6 +1,6 @@
 class VibesController < ApplicationController
   def index
-    @vibes = Vibe.all
+    @vibes = Vibe.page(params[:page]).per(10)
 
     render("vibes/index.html.erb")
   end

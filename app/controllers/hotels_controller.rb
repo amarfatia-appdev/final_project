@@ -1,6 +1,6 @@
 class HotelsController < ApplicationController
   def index
-    @hotels = Hotel.all
+    @hotels = Hotel.page(params[:page]).per(10)
 
     render("hotels/index.html.erb")
   end
