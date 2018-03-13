@@ -17,7 +17,7 @@
       <% @recommendations.each do |recommendation| %>
       <tr>
         <td><%= recommendation.user.email %></td>
-        <td><%= recommendation.destination_id %></td>
+        <td><%= recommendation.destination.name %></td>
         <td>
           <a href="/recommendations/<%= recommendation.id %>" class="btn btn-primary">Show</a>
           <a href="/recommendations/<%= recommendation.id %>/edit" class="btn btn-warning">Edit</a>
