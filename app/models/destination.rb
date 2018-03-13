@@ -1,6 +1,9 @@
 class Destination < ApplicationRecord
   # Direct associations
 
+  has_many   :flights,
+             :dependent => :destroy
+
   has_many   :hotels,
              :dependent => :destroy
 
