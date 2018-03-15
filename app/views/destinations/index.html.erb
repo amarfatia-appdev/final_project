@@ -1,163 +1,42 @@
 <div class="page-header">
-  <h1>
-    Destinations
-    <a href="/destinations/new" class="btn btn-lg btn-success">New Destination</a>
+  <h1 class = "text-center">
+    What kind of trip are you looking for ?
   </h1>
-</div><div class="row mb-1">
-  <div class="col-md-12">
-    <%= search_form_for @q, :class => collapse_search_form, :id => "destinations_filters" do |f| %>
-      <p class="lead">Narrow results:</p>
-
-        <div class="form-group">
-    <%= f.label :name_cont, "Name contains" %>
-    <%= f.text_field :name_cont, :class => "form-control", :placeholder => "Name contains" %>
-  </div>
-
-<div class="form-group">
-    <%= f.label :longitude_cont, "Longitude contains" %>
-    <%= f.text_field :longitude_cont, :class => "form-control", :placeholder => "Longitude contains" %>
-  </div>
-
-<div class="form-group">
-    <%= f.label :latitude_cont, "Latitude contains" %>
-    <%= f.text_field :latitude_cont, :class => "form-control", :placeholder => "Latitude contains" %>
-  </div>
-
-<div class="form-group">
-    <%= f.label :image_url_cont, "Image url contains" %>
-    <%= f.text_field :image_url_cont, :class => "form-control", :placeholder => "Image url contains" %>
-  </div>
-
-<div class="form-group">
-  <%= f.label :tag_id, "Tag" %>
-  <div class="row">
-    <div class='col-md-6 mb-1'>
-      <%= f.text_field :tag_id_gteq, :class => "form-control", :placeholder => "Tag greater than or equal to" %>
-    </div>
-    <div class='col-md-6'>
-      <%= f.text_field :tag_id_lteq, :class => "form-control", :placeholder => "Tag less than or equal to" %>
-    </div>
-  </div>
 </div>
 
-<div class="form-group">
-    <%= f.label :description_cont, "Description contains" %>
-    <%= f.text_field :description_cont, :class => "form-control", :placeholder => "Description contains" %>
+
+<%= form_tag("/create_recommendation", method: "post") do %>
+  <div class = "form-row">
+  <div class = "form-group col-md-6">
+    <%= label_tag :flight_number, "Maximum Roundtrip Flight Budget" %> 
+    <%= text_field_tag :flight_number, nil, placeholder: "Enter a number ie 200", size: 75 %>
+  </div> 
+  <div class = "form-group col-md-6">
+    <%= label_tag :hotel_number, "Maximum Per Night Hotel Budget" %>
+    <%= text_field_tag :hotel_number, nil, placeholder: "Enter a number ie 200", size: 75 %>
+  </div>  
   </div>
-
-<div class="form-group">
-          <%= f.label :created_at, "Created at" %>
-          <div class="row">
-            <div class='col-md-6 mb-1'>
-              <div class='input-group date' id='created_atgteqPicker'>
-                  <%= f.text_field :created_at_gteq, :class => "form-control", :placeholder => "Created at greater than or equal to" %>
-                  <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-              </div>
-            </div>
-
-            <div class='col-md-6'>
-              <div class='input-group date' id='created_atlteqPicker'>
-                  <%= f.text_field :created_at_lteq, :class => "form-control", :placeholder => "Created at less than or equal to" %>
-                  <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-              </div>
-            </div>
-          </div>
-      </div>
-      <script type="text/javascript">
-          $(function () {
-              $('#created_atgteqPicker').datetimepicker({
-                  format: 'YYYY-MM-DD hh:mm:SS'
-              });
-              $('#created_atlteqPicker').datetimepicker({
-                  useCurrent: false,
-                  format: 'YYYY-MM-DD hh:mm:SS'
-              });
-              $('#created_atgteqPicker').on("dp.change", function (e) {
-                  $('#created_atlteqPicker').data("DateTimePicker").minDate(e.date);
-              });
-              $('#created_atlteqPicker').on("dp.change", function (e) {
-                  $('#created_atgteqPicker').data("DateTimePicker").maxDate(e.date);
-              });
-          });
-      </script>
-
-        <div class="form-group">
-  <%= f.label :stars, "Hotel Stars" %>
-  <div class="row">
-    <div class='col-md-6 mb-1'>
-      <%= f.text_field :hotels_stars_gteq, :class => "form-control", :placeholder => "Hotel Stars greater than or equal to" %>
+  <div class = "form-row">
+    <div class = "form-group col-md-6">
+      <%= select_tag("stars", "<option>2</option><option>3</option><option>4</option><option>5</option>".html_safe, :prompt => "Select minimum number of hotel stars", :class => "form-control") %>
     </div>
-    <div class='col-md-6'>
-      <%= f.text_field :hotels_stars_lteq, :class => "form-control", :placeholder => "Hotel Stars less than or equal to" %>
-    </div>
+    <div class = "form-group col-md-6">
+      <%= select_tag("vibe_id", options_from_collection_for_select(Vibe.all, :id, :name, @destination.try(:vibe_id)), :prompt => "Select a vibe", :class => "form-control") %>
+    </div>  
   </div>
-</div>
+  <p>
+    <%= submit_tag("Show me where to go!", class:"btn btn-primary btn-lg btn-block") %>
+  </p>
+<% end %>
 
-<div class="form-group">
-  <%= f.label :min_cost, "Flight Min cost" %>
-  <div class="row">
-    <div class='col-md-6 mb-1'>
-      <%= f.text_field :flights_min_cost_gteq, :class => "form-control", :placeholder => "Flight Min cost greater than or equal to" %>
-    </div>
-    <div class='col-md-6'>
-      <%= f.text_field :flights_min_cost_lteq, :class => "form-control", :placeholder => "Flight Min cost less than or equal to" %>
-    </div>
-  </div>
-</div>
-
-<div class="form-group">
-      <%= f.label :fans_email_cont, "User email contains" %>
-      <%= f.text_field :fans_email_cont, :class => "form-control", :placeholder => "User email contains" %>
-    </div>
-
-<div class="form-group">
-      <%= f.label :vibes_name_cont, "Vibe name contains" %>
-      <%= f.text_field :vibes_name_cont, :class => "form-control", :placeholder => "Vibe name contains" %>
-    </div>
-
-      <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
-
-      <a href="/destinations" class="btn btn-default btn-block mb-1">Clear filters</a>
-    <% end %>
-    <a class="btn btn-default btn-block mb-1" data-toggle="collapse" href="#destinations_filters">
-      Show Filters
-    </a>
-  </div>
-</div>
-
+<div style="margin-top:20px">
+<% @destinations.in_groups_of(3, false).each do |group| %>
 <div class="row">
-  <div class="col-md-12">
-    <table class="table table-striped table-hover">
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Tag</th>
-        <th>Image url</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
-        <th>Actions</th>
-      </tr>
-
-      <% @destinations.each do |destination| %>
-      <tr>
-        <td><%= destination.name %></td>
-        <td><%= destination.description %></td>
-        <td><%= destination.tag_id %></td>
-        <td><%= destination.image_url %></td>
-        <td><%= destination.latitude %></td>
-        <td><%= destination.longitude %></td>
-        <td>
-          <a href="/destinations/<%= destination.id %>" class="btn btn-primary">Show</a>
-          <a href="/destinations/<%= destination.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_destination/<%= destination.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
-        </td>
-      </tr>
+      <% group.each do |destination| %>
+      <div class='col-md-4'>
+      <a href="/destinations/<%= destination.id %>"><%= image_tag(destination.image_url, class: "img-responsive") %></a>
+      </div>
       <% end %>
-    </table>
-    <%= paginate @destinations, theme: 'twitter-bootstrap-4' %>
-  </div>
+    </div>
+<% end %>  
 </div>

@@ -11,7 +11,7 @@ class RecommendationsController < ApplicationController
 
   def index
     @q = current_user.recommendations.ransack(params[:q])
-      @recommendations = @q.result(:distinct => true).includes(:user, :destination).page(params[:page]).per(10)
+      @recommendations = @q.result(:distinct => true).order("created_at desc").includes(:user, :destination).page(params[:page]).per(10)
 
     render("recommendations/index.html.erb")
   end
@@ -29,26 +29,36 @@ class RecommendationsController < ApplicationController
   end
 
   def create
-    @recommendation = Recommendation.new
-
-    @recommendation.user_id = params[:user_id]
-    @recommendation.destination_id = params[:destination_id]
-
-    save_status = @recommendation.save
-
-    if save_status == true
-      referer = URI(request.referer).path
-
-      case referer
-      when "/recommendations/new", "/create_recommendation"
-        redirect_to("/recommendations")
-      else
-        redirect_back(:fallback_location => "/", :notice => "Recommendation created successfully.")
-      end
+    flight_budget = params[:flight_number].to_i
+    hotel_budget = params[:hotel_number].to_i
+    stars = params[:stars].to_i
+    vibe = params[:vibe_id].to_i
+    
+    destinations = Destination.joins(tags: :vibe).where('tags.vibe_id' => vibe).pluck(:destination_id)
+    suggestions = []
+    destinations.each do |destination|
+      costf = Flight.find_by(:destination_id => destination).min_cost
+      costh = Hotel.find_by(:destination_id => destination, :stars => stars).min_cost
+      if flight_budget >= costf && hotel_budget >=costh
+      suggestions.push(destination)
+      end  
+    end  
+    
+    if suggestions.length == 0
+      redirect_to("/destinations", :alert => "Sorry we were unable to find a match. Please check back soon as we are expanding our list of destinations!")
     else
-      render("recommendations/new.html.erb")
-    end
-  end
+      suggestions.each do |suggestion|
+        @recommendation = Recommendation.new
+        @recommendation.user_id = current_user.id
+        @recommendation.destination_id = suggestion
+        if @recommendation.valid?
+          @recommendation.save
+        end
+      end
+    redirect_to("/recommendations")
+    end 
+  end 
+ 
 
   def edit
     @recommendation = Recommendation.find(params[:id])

@@ -11,5 +11,7 @@ class Vibe < ApplicationRecord
              :source => :destination
 
   # Validations
+  
+  validates :name, presence: true, uniqueness: true
 
 end

@@ -1,369 +1,99 @@
-<div class="page-header">
-  <h3>Destination #<%= @destination.id %></h3>
+<div class="page-header" align = "center" >
+  <h2><%= @destination.name %></h2>
 </div>
 
+<h4 align = "center">Vibe(s): <% @destination.vibes.each do |vibe| %>
+            <%= vibe.name %>
+            <% end %>
+          </h4>
+          
+<div class = "container" align = "center">
+<%= image_tag(@destination.image_url, size: 750, class: "img-thumbnail") %>
+</div>
+<br>
+</br>
 <div class="row">
   <div class="col-md-12 mb-2">
-    <dl class="dl-horizontal">
-      <dt>Name</dt>
-      <dd><%= @destination.name %></dd>
 
-      <dt>Description</dt>
-      <dd><%= @destination.description %></dd>
-
-      <dt>Tag</dt>
-      <dd><%= @destination.tag_id %></dd>
-
-      <dt>Image url</dt>
-      <dd><%= @destination.image_url %></dd>
-
-      <dt>Latitude</dt>
-      <dd><%= @destination.latitude %></dd>
-
-      <dt>Longitude</dt>
-      <dd><%= @destination.longitude %></dd>
-
-    </dl>
-
-    <div class="btn-group btn-group-justified">
-      <a href="/destinations" class="btn btn-primary">
-        Back
-      </a>
-      <a href="/destinations/<%= @destination.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_destination/<%= @destination.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- A Destination has many recommendations -->
-
-<div class="row">
-  <div class="col-md-12">
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-info">
-        Recommendations
-      </li>
-
-      <% @destination.recommendations.each do |recommendation| %>
-        <li class="list-group-item">
-          <a href="/recommendations/<%= recommendation.id %>">
-            <%= recommendation.user_id %>
-          </a>
-          <div class="btn-group btn-group-xs pull-right">
-            <a href="/recommendations/<%= recommendation.id %>" class="btn btn-primary">
-              <i class="fa fa-search-plus"></i>
-            </a>
-            <a href="/recommendations/<%= recommendation.id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
-            </a>
-            <a href="/delete_recommendation/<%= recommendation.id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
-        </li>
-      <% end %>
-
-      <li class="list-group-item">
-        <form action="/create_recommendation" method="post">
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-      <!-- Label and input for user_id -->
-      <input type="hidden" name="user_id" value="<%= current_user.id %>">
-
-      <!-- Label and input for destination_id -->
-      <input type="hidden" name="destination_id" value="<%= @destination.id %>">
-
-      <button class="btn btn-block btn-success">
-        Create Recommendation
-      </button>
-    </form>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- A Destination has many hotels -->
-
-<div class="row">
-  <div class="col-md-12">
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-info">
-        Hotels
-      </li>
-
-      <% @destination.hotels.each do |hotel| %>
-        <li class="list-group-item">
-          <a href="/hotels/<%= hotel.id %>">
-            <%= hotel.stars %>
-          </a>
-          <div class="btn-group btn-group-xs pull-right">
-            <a href="/hotels/<%= hotel.id %>" class="btn btn-primary">
-              <i class="fa fa-search-plus"></i>
-            </a>
-            <a href="/hotels/<%= hotel.id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
-            </a>
-            <a href="/delete_hotel/<%= hotel.id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
-        </li>
-      <% end %>
-
-      <li class="list-group-item">
-        <form action="/create_hotel" method="post">
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-      <!-- Label and input for stars -->
-      <div class="form-group">
-        <label for="stars" class="control-label">
-          Stars
-        </label>
-
-        <input type="text" id="stars" name="stars" placeholder="Stars" class="form-control" value="">
-      </div>
-
-      <!-- Label and input for min_cost -->
-      <div class="form-group">
-        <label for="min_cost" class="control-label">
-          Min cost
-        </label>
-
-        <input type="text" id="min_cost" name="min_cost" placeholder="Min cost" class="form-control" value="">
-      </div>
-
-      <!-- Label and input for destination_id -->
-      <input type="hidden" name="destination_id" value="<%= @destination.id %>">
-
-      <button class="btn btn-block btn-success">
-        Create Hotel
-      </button>
-    </form>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- A Destination has many flights -->
-
-<div class="row">
-  <div class="col-md-12">
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-info">
-        Flights
-      </li>
-
+      <dt>Travel & Leisure Magazine Excerpt: </dt>
+      <%= @destination.description %>
+      <br>
+      <br>
+      
+      <dt> Cost of flight from Chicago: </dt>
       <% @destination.flights.each do |flight| %>
-        <li class="list-group-item">
-          <a href="/flights/<%= flight.id %>">
-            <%= flight.min_cost %>
-          </a>
-          <div class="btn-group btn-group-xs pull-right">
-            <a href="/flights/<%= flight.id %>" class="btn btn-primary">
-              <i class="fa fa-search-plus"></i>
-            </a>
-            <a href="/flights/<%= flight.id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
-            </a>
-            <a href="/delete_flight/<%= flight.id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
-        </li>
-      <% end %>
-
-      <li class="list-group-item">
-        <form action="/create_flight" method="post">
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-      <!-- Label and input for min_cost -->
-      <div class="form-group">
-        <label for="min_cost" class="control-label">
-          Min cost
-        </label>
-
-        <input type="text" id="min_cost" name="min_cost" placeholder="Min cost" class="form-control" value="">
-      </div>
-
-      <!-- Label and input for destination_id -->
-      <input type="hidden" name="destination_id" value="<%= @destination.id %>">
-
-      <button class="btn btn-block btn-success">
-        Create Flight
-      </button>
-    </form>
-      </li>
-    </ul>
+            <%= flight.min_cost %> 
+            <% end %>
+      </br>   
+      </br>
+      
   </div>
+  </div>
+  <div class = "row">
+    <div class = "col-md-4">
+    
+      <dt>Map of the Area: </dt>
+      <%= image_tag(@google_map) %>
+
+    
+  </div>
+  
+  <div class = "col-md-8">
+    <dt> Hotel cost by hotel stars: </dt>
+    <br>
+    <br>
+      <table class= "table table-striped table-hover">
+       <tr>
+        <th>Number of Hotel Stars</th>
+        <th>Average per night hotel cost</th>
+       </tr>
+        <% @destination.hotels.order('stars').each do |hotel| %>
+          <tr>
+             <td><%= hotel.stars %></td>
+             <td><%= hotel.min_cost %></td>
+          </tr>   
+        <% end %>
+      </table>
+  </div>
+
 </div>
 
-<!-- A Destination has many tags -->
 
-<div class="row">
-  <div class="col-md-12">
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-info">
-        Tags
-      </li>
-
-      <% @destination.tags.each do |tag| %>
-        <li class="list-group-item">
-          <a href="/tags/<%= tag.id %>">
-            <%= tag.vibe_id %>
-          </a>
-          <div class="btn-group btn-group-xs pull-right">
-            <a href="/tags/<%= tag.id %>" class="btn btn-primary">
-              <i class="fa fa-search-plus"></i>
-            </a>
-            <a href="/tags/<%= tag.id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
-            </a>
-            <a href="/delete_tag/<%= tag.id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
-        </li>
-      <% end %>
-
-      <li class="list-group-item">
-        <form action="/create_tag" method="post">
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-      <!-- Label and input for vibe_id -->
-      <div class="form-group">
-        <label for="vibe_id" class="control-label">
-          Vibe
-        </label>
-
-        <%= select_tag(:vibe_id, options_from_collection_for_select(Vibe.all, :id, :name), :class => "form-control") %>
-      </div>
-
-      <!-- Label and input for destination_id -->
-      <input type="hidden" name="destination_id" value="<%= @destination.id %>">
-
-      <button class="btn btn-block btn-success">
-        Create Tag
-      </button>
-    </form>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- A Destination has many favorites -->
-
-<div class="row">
-  <div class="col-md-12">
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-info">
-        Favorites
-      </li>
-
-      <% @destination.favorites.each do |favorite| %>
-        <li class="list-group-item">
-          <a href="/favorites/<%= favorite.id %>">
-            <%= favorite.user_id %>
-          </a>
-          <div class="btn-group btn-group-xs pull-right">
-            <a href="/favorites/<%= favorite.id %>" class="btn btn-primary">
-              <i class="fa fa-search-plus"></i>
-            </a>
-            <a href="/favorites/<%= favorite.id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
-            </a>
-            <a href="/delete_favorite/<%= favorite.id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
-        </li>
-      <% end %>
-
-      <li class="list-group-item">
+   <div class="row">
+        <div class="col-md-6">
+        <a href="/destinations" class="btn btn-block btn-primary">
+        Home
+        </a>
+        </div>
+        <div class="col-md-6">
+        <% if Favorite.find_by(:user_id => current_user.id, :destination_id => @destination.id) == nil %>  
         <form action="/create_favorite" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
       <!-- Label and input for user_id -->
-      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+        <input type="hidden" name="user_id" value="<%= current_user.id %>">
 
       <!-- Label and input for destination_id -->
-      <input type="hidden" name="destination_id" value="<%= @destination.id %>">
+        <input type="hidden" name="destination_id" value="<%= @destination.id %>">
+        <button class="btn btn-block btn-success">Favorite</button>
+        </form>
+        <% else %>
+        <% l=Favorite.find_by(:user_id => current_user.id, :destination_id => @destination.id) %>
+        <form action="/delete_favorite/<%=l.id %>" method="get">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-      <button class="btn btn-block btn-success">
-        Create Favorite
-      </button>
-    </form>
-      </li>
-    </ul>
+      <!-- Label and input for user_id -->
+        <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for destination_id -->
+        <input type="hidden" name="destination_id" value="<%= @destination.id %>">
+        <button class="btn btn-block btn-success">Delete Favorite</button>
+        </form>
+        <% end %>
+    </div>
   </div>
-</div>
 
-<!-- A Destination has many fans -->
 
-<div class="row">
-  <div class="col-md-12">
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-info">
-        Fans
-      </li>
 
-      <% @destination.fans.each do |user| %>
-        <li class="list-group-item">
-          <a href="/users/<%= user.id %>">
-            <%= user.email %>
-          </a>
-          <div class="btn-group btn-group-xs pull-right">
-            <a href="/users/<%= user.id %>" class="btn btn-primary">
-              <i class="fa fa-search-plus"></i>
-            </a>
-            <a href="/users/<%= user.id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
-            </a>
-            <a href="/delete_user/<%= user.id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</div>
-
-<!-- A Destination has many vibes -->
-
-<div class="row">
-  <div class="col-md-12">
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-info">
-        Vibes
-      </li>
-
-      <% @destination.vibes.each do |vibe| %>
-        <li class="list-group-item">
-          <a href="/vibes/<%= vibe.id %>">
-            <%= vibe.name %>
-          </a>
-          <div class="btn-group btn-group-xs pull-right">
-            <a href="/vibes/<%= vibe.id %>" class="btn btn-primary">
-              <i class="fa fa-search-plus"></i>
-            </a>
-            <a href="/vibes/<%= vibe.id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
-            </a>
-            <a href="/delete_vibe/<%= vibe.id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</div>

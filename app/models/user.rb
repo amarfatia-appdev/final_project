@@ -14,6 +14,9 @@ class User < ApplicationRecord
              :source => :destination
 
   # Validations
+  
+  validates :username, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

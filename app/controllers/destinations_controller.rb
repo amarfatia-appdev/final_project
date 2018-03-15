@@ -8,11 +8,12 @@ class DestinationsController < ApplicationController
 
   def show
     @favorite = Favorite.new
-    @tag = Tag.new
     @flight = Flight.new
     @hotel = Hotel.new
-    @recommendation = Recommendation.new
     @destination = Destination.find(params[:id])
+    
+    @google_map = "https://maps.googleapis.com/maps/api/staticmap?center="+ @destination.latitude + "," + @destination.longitude+ "&size=300x300&zoom=5"
+
 
     render("destinations/show.html.erb")
   end

@@ -27,5 +27,11 @@ class Destination < ApplicationRecord
              :source => :user
 
   # Validations
+  
+  validates :name, presence: true, uniqueness: {:scope => [:latitude, :longitude]}
+  validates :latitude, presence: true, numericality: true
+  validates :longitude, presence: true, numericality: true
+  validates :description, presence: true
+  validates :image_url, presence: true
 
 end

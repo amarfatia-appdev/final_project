@@ -42,7 +42,7 @@
           Tag
         </label>
 
-        <input type="text" id="tag_id" name="tag_id" placeholder="Tag" class="form-control" value="<%= @destination.tag_id %>">
+        <%= select_tag("vibe_id", options_from_collection_for_select(Vibe.all, :id, :name, @destination.try(:vibe_id)), :class => "form-control") %>
       </div>
 
       <!-- Label and input for image_url -->
